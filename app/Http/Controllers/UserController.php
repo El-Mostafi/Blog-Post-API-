@@ -22,7 +22,12 @@ class UserController extends Controller
             "email"=>$request->input('email'),
             "password"=>$request->input('password'),
         ]);
-        return response()->json(["message"=>"Registration Successfully Completed"]);
+        //after the registration login the user
+        $token=$this->login($request);
+        return response()->json([
+            "message"=>"Registration Successfully Completed",
+            "token"=>$token
+        ]);
     }
     public function login(Request $request){
         $request->validate([
